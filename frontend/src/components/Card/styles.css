@@ -1,0 +1,89 @@
+.card-container-holder {
+  width: 250px;
+  height: 350px;
+  margin: 20px;
+  perspective: 1100px;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(30, 30, 30, 0.2);
+  transition: box-shadow 0.3s, transform 1s;
+}
+
+.card-container.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.back-card-container {
+  transform: rotateY(180deg);
+}
+
+.card-container:hover {
+  box-shadow: 0 0 20px rgba(30, 30, 30, 0.5);
+}
+
+.card-container .alert-bar {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-container .alert-bar.danger {
+  background: #e02041;
+}
+
+.card-container .alert-bar.warning {
+  background: #ffda21;
+}
+
+.card-container .alert-bar.normal {
+  background: #2076e0;
+}
+
+.card-container .alert-bar.disabled {
+  background: #cccccc;
+}
+
+.card-container .content {
+  width: 100%;
+  height: 300px;
+  padding: 14px 32px;
+}
+
+.card-container .content h1 {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.card-container .card-face .time-ago {
+  width: 100%;
+  margin-top: -28px;
+  text-align: center;
+}
+
+.card-container .content .sensor-info {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px auto;
+}
