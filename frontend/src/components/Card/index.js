@@ -1,79 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import mqtt from 'mqtt';
+import { connect } from 'react-redux';
 import TimeAgo from 'react-timeago';
-import brazilianStrings from 'react-timeago/lib/language-strings/pt-br';
-import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
+
+import { IoIosReturnLeft } from 'react-icons/io';
 
 import FrontCard from './FrontCard';
 import BackCard from './BackCard';
-import RecordsQueue from '../../helpers/RecordsQueue';
-import settings from '../../settings';
+
+import timeAgoFormatter from '../../helpers/timeAgoFormatter';
+import timeFormatter from '../../helpers/timeFormatter';
 
 import './styles.css';
 
-const Card = ({ name, route }) => {
+const Card = ({ name, sensorId, sensorData, records }) => {
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
   const history = useHistory();
 
-  const emptyRecord = {
-    beat: '--',
-    spo2: '--',
-    temp: '--',
-    timestamp: Date.now(),
-  };
-
-  const recordsQueue = new RecordsQueue(100, `sensor-${route}`, [emptyRecord]);
-  recordsQueue.loadLocal();
-
-  const [sensors, setSensors] = useState(recordsQueue.getLast());
-  const [isCardFlipped, setIsCardFlipped] = useState(false);
-
-  useEffect(() => {
-    // TODO: close connection on unmountComponent
-    const client = mqtt.connect(settings.BROKER_URL);
-    client.subscribe(`oximetroiot/${route}`, function (err) {
-      console.log(`subscribing to oximetroiot/${route}....`);
-      if (err) {
-        console.log('error');
-      }
-    });
-
-    client.on('message', function (topic, message) {
-      const { beat, spo2, temp } = JSON.parse(message.toString());
-      const timestamp = Date.now();
-      setSensors({ beat, spo2, temp, timestamp });
-      recordsQueue.add({ beat, spo2, temp, timestamp });
-      recordsQueue.saveLocal();
-    });
-  }, [route]);
-
   const handleCardClick = () => {
-    // setIsCardFlipped(!isCardFlipped);
-    history.push(`/beds/${route}`);
+    history.push(`/beds/${sensorId}`);
   };
 
-  const timeFormatter = buildFormatter(brazilianStrings);
+  const handleFlipCard = (event) => {
+    event.stopPropagation();
+    setIsCardFlipped(!isCardFlipped);
+  };
 
   return (
     <div className="card-container-holder">
-      <div onClick={handleCardClick} className={isCardFlipped ? 'card-container is-flipped' : 'card-container'}>
+      <div
+        onClick={handleCardClick}
+        className={isCardFlipped ? 'card-container is-flipped' : 'card-container'}
+        title="Visualizar gráficos de evolução"
+      >
         <div className="card-face front-card-container">
           <div className="alert-bar normal" />
-          <FrontCard name={name} sensors={sensors} />
+          <FrontCard name={name} sensors={sensorData} />
           <div className="time-ago">
-            <TimeAgo live={true} date={sensors.timestamp} formatter={timeFormatter} />
+            <TimeAgo live={true} date={sensorData.timestamp} formatter={timeAgoFormatter} />
           </div>
+          <button className="button" onClick={(event) => handleFlipCard(event)} type="button" title="Ver estatísticas">
+            <IoIosReturnLeft size={28} />
+          </button>
         </div>
         <div className="card-face back-card-container">
           <div className="alert-bar normal" />
-          <BackCard name={name} queueSensors={recordsQueue.queue} />
+          <BackCard name={name} records={records} />
           <div className="time-ago">
-            <TimeAgo live={true} date={sensors.timestamp} formatter={timeFormatter} />
+            <p>ID do Sensor: {sensorId}</p>
+            Entre {timeFormatter(records[0].timestamp)} - {timeFormatter(sensorData.timestamp)}
           </div>
+          <button
+            className="button"
+            onClick={(event) => handleFlipCard(event)}
+            type="button"
+            title="Ver dados em tempo real"
+          >
+            <IoIosReturnLeft size={28} />
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Card;
+const mapStateToProps = (state, ownProps) => {
+  const { sensorId } = ownProps;
+  const records = state.sensors[sensorId];
+  const sensorData = records[records.length - 1];
+  return { records, sensorData };
+};
+
+export default connect(mapStateToProps)(Card);
