@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import TimeAgo from 'react-timeago';
 
 import { IoIosReturnLeft } from 'react-icons/io';
 
 import FrontCard from './FrontCard';
 import BackCard from './BackCard';
-
-import timeAgoFormatter from '../../helpers/timeAgoFormatter';
+import TimeAgoLabel from '../TimeAgoLabel';
 import timeFormatter from '../../helpers/timeFormatter';
 
 import './styles.css';
 
-const Card = ({ name, sensorId, sensorData, records }) => {
+const Card = ({ name, sensorId, sensorData, records, isDataExpired }) => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const history = useHistory();
 
@@ -30,22 +28,17 @@ const Card = ({ name, sensorId, sensorData, records }) => {
     <div className="card-container-holder">
       <div onClick={handleCardClick} className={isCardFlipped ? 'card-container is-flipped' : 'card-container'}>
         <div className="card-face front-card-container">
-          <div className="alert-bar normal" />
-          <FrontCard name={name} sensors={sensorData} />
+          <div className={isDataExpired ? 'alert-bar expired' : 'alert-bar normal'} />
+          <FrontCard name={name} sensorData={sensorData} />
           <div className="time-ago">
-            <TimeAgo
-              live={true}
-              date={sensorData.timestamp}
-              formatter={timeAgoFormatter}
-              title={timeFormatter(sensorData.timestamp)}
-            />
+            <TimeAgoLabel date={sensorData.timestamp} expired={isDataExpired} />
           </div>
           <button className="button" onClick={(event) => handleFlipCard(event)} type="button" title="Ver estatísticas">
             <IoIosReturnLeft size={28} />
           </button>
         </div>
         <div className="card-face back-card-container">
-          <div className="alert-bar normal" />
+          <div className={isDataExpired ? 'alert-bar expired' : 'alert-bar normal'} />
           <BackCard name={name} records={records} />
           <div className="time-ago">
             <p>ID do Sensor: {sensorId}</p>
@@ -67,9 +60,10 @@ const Card = ({ name, sensorId, sensorData, records }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const { sensorId } = ownProps;
-  const records = state.sensors[sensorId];
+  const records = state.sensors[sensorId].data;
+  const isDataExpired = state.sensors[sensorId].expired;
   const sensorData = records[records.length - 1];
-  return { records, sensorData };
+  return { records, sensorData, isDataExpired };
 };
 
 export default connect(mapStateToProps)(Card);

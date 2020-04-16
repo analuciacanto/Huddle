@@ -32,6 +32,7 @@
 
 .front-card-container {
   z-index: 1;
+  transform: rotateY(0deg)
 }
 
 .back-card-container {
@@ -64,6 +65,10 @@
 
 .card-container .alert-bar.disabled {
   background: #cccccc;
+}
+
+.card-container .alert-bar.expired {
+  background: #333333;
 }
 
 .card-container .content {
