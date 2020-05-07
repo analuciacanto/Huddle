@@ -33,7 +33,7 @@ const TimeSerieLineChart = ({
 
   const timeLabelFormatter = (value) => {
     if (isNaN(value)) {
-      return '--';
+      return value;
     }
     return timeFormatter ? timeFormatter(value) : defaultTimeFormatter(value);
   };
@@ -56,7 +56,10 @@ const TimeSerieLineChart = ({
           ticks={fixedTicks || calculateTicks(tickStep, tickOffset)}
           tickFormatter={(value) => valueLabelFormatter(value)}
         />
-        <Tooltip labelFormatter={(timeStr) => timeLabelFormatter(timeStr)} />
+        <Tooltip
+          labelFormatter={(timeStr) => timeLabelFormatter(timeStr)}
+          formatter={(value) => valueLabelFormatter(value)}
+        />
         <Line
           name={lineName}
           type="monotone"

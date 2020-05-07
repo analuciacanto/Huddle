@@ -6,17 +6,19 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.19.2",
-    "mqtt": "^3.0.0",
+    "mqtt": "^4.0.0",
     "react": "^16.13.1",
+    "react-csv": "^2.0.3",
     "react-dom": "^16.13.1",
-    "react-icons": "^3.9.0",
+    "react-icons": "^3.10.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-spring": "^8.0.27",
     "react-timeago": "^4.4.0",
     "recharts": "^1.8.5",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "toasted-notes": "^3.2.0"
   },
   "scripts": {
     "start": "react-app-rewired start --scripts-version react-scripts",
@@ -40,6 +42,6 @@
     ]
   },
   "devDependencies": {
-    "react-app-rewired": "^2.1.5"
+    "react-app-rewired": "^2.1.6"
   }
 }
