@@ -1,9 +1,10 @@
 import RecordsQueue from '../helpers/RecordsQueue';
 import emptySensorData from '../helpers/emptySensorData';
-import settings from 'settings';
+import { SENSOR_DATA_RECEIVED, DELETE_SENSOR_DATA, UPDATE_HOSPITAL_BEDS } from '../actions/types';
+import { REPORT_INTERVAL_MINUTES } from 'settings';
 
 const reportKeyPrefix = 'report-sensor-';
-const reportsPerDay = (24 * 60) / settings.REPORT_INTERVAL_MINUTES;
+const reportsPerDay = (24 * 60) / REPORT_INTERVAL_MINUTES;
 
 const loadInitialData = (ids) => {
   const state = {};
@@ -22,13 +23,13 @@ const loadInitialData = (ids) => {
 
 const getInterval = (date) => {
   const dateMinutes = date.getHours() * 60 + date.getMinutes();
-  return Math.floor(dateMinutes / settings.REPORT_INTERVAL_MINUTES);
+  return Math.floor(dateMinutes / REPORT_INTERVAL_MINUTES);
 };
 
 const intervalOffsetPercentage = (sensorData) => {
   const date = new Date(sensorData.timestamp);
   const dateMinutes = date.getHours() * 60 + date.getMinutes();
-  return (dateMinutes % settings.REPORT_INTERVAL_MINUTES) / settings.REPORT_INTERVAL_MINUTES;
+  return (dateMinutes % REPORT_INTERVAL_MINUTES) / REPORT_INTERVAL_MINUTES;
 };
 
 const hasSameInterval = (sensorDataA, sensorDataB) => {
@@ -45,7 +46,7 @@ const hasSameInterval = (sensorDataA, sensorDataB) => {
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'SENSOR_DATA_RECEIVED': {
+    case SENSOR_DATA_RECEIVED: {
       const { sensorId, sensorData } = action.payload;
       const reportQueue = new RecordsQueue(reportsPerDay, reportKeyPrefix + sensorId);
       reportQueue.loadLocal();
@@ -58,13 +59,13 @@ export default (state = {}, action) => {
       state[sensorId].data = reportQueue.queue;
       return { ...state };
     }
-    case 'DELETE_SENSOR_DATA': {
+    case DELETE_SENSOR_DATA: {
       const sensorId = action.payload;
       localStorage.removeItem(reportKeyPrefix + sensorId);
       const emptyData = loadInitialData([action.payload]);
       return { ...state, ...emptyData };
     }
-    case 'HOSPITAL_BEDS_UPDATED': {
+    case UPDATE_HOSPITAL_BEDS: {
       return loadInitialData(action.payload.map((hospitalBed) => hospitalBed.sensorId));
     }
     default: {
