@@ -4,7 +4,7 @@ import mqtt from 'mqtt';
 
 import Routes from './routes';
 import { updateHospitalBeds } from './actions';
-import { BROKER_URL } from 'settings';
+import { BROKER_URL, OXIMETERS_TOPIC } from 'settings';
 
 import handleBrokerConnect from './helpers/handleBrokerConnect';
 import handleBrokerMessage from './helpers/handleBrokerMessage';
@@ -18,6 +18,8 @@ const App = ({ updateHospitalBeds }) => {
 
   useEffect(() => {
     const client = mqtt.connect(BROKER_URL);
+
+    client.subscribe(OXIMETERS_TOPIC);  
 
     client.on('connect', () => {
       handleBrokerConnect(client);
