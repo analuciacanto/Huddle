@@ -59,7 +59,9 @@ const AlertToaster = ({ alertType, message, onClose, timestamp, hospitalBed }) =
 
 const mapStateToProps = (state, ownProps) => {
   const { sensorId } = ownProps;
-  const hospitalBed = state.hospitalBeds[sensorId];
+  const hospitalBed = state.hospitalBeds.filter((bed) => {
+    return bed.sensorId === parseInt(sensorId);
+  })[0];
   return { hospitalBed };
 };
 
