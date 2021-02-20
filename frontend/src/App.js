@@ -4,7 +4,7 @@ import mqtt from 'mqtt';
 
 import Routes from './routes';
 import { updateHospitalBeds } from './actions';
-import { BROKER_URL, OXIMETERS_TOPIC } from 'settings';
+import { BROKER_PROTOCOL, BROKER_IP, BROKER_PORT, BROKER_URL_PATH, BROKER_LOGIN, BROKER_PASSWORD, OXIMETERS_TOPIC } from 'settings';
 
 import handleBrokerConnect from './helpers/handleBrokerConnect';
 import handleBrokerMessage from './helpers/handleBrokerMessage';
@@ -17,9 +17,14 @@ const App = ({ updateHospitalBeds }) => {
   });
 
   useEffect(() => {
-    const client = mqtt.connect(BROKER_URL);
+    const options = {
+      username: BROKER_LOGIN,
+      password: Buffer.from(BROKER_PASSWORD),
+      port: BROKER_PORT,
+    };
+    const client = mqtt.connect(`${BROKER_PROTOCOL}://${BROKER_IP}${BROKER_URL_PATH.startsWith('/') ? BROKER_URL_PATH : `/${BROKER_URL_PATH}`}`, options);
 
-    client.subscribe(OXIMETERS_TOPIC);  
+    client.subscribe(OXIMETERS_TOPIC);
 
     client.on('connect', () => {
       handleBrokerConnect(client);

@@ -1,7 +1,12 @@
 const settings = {
 
   DASHBOARD_NAME: 'Oximetro IoT UFRJ',
-  BROKER_URL: 'ws://broker.hivemq.com:8000/mqtt',
+  BROKER_PROTOCOL: 'ws',
+  BROKER_IP: 'broker.hivemq.com',
+  BROKER_PORT: 8000,
+  BROKER_URL_PATH: '/mqtt',
+  BROKER_LOGIN: '',
+  BROKER_PASSWORD: '',
   OXIMETERS_TOPIC: 'oximeters',
   ALERTS_TOPIC: 'alerts',
   RECORDS_TO_SAVE: 500,
