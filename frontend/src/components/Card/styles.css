@@ -1,0 +1,137 @@
+.card-container-holder {
+  width: 250px;
+  height: 350px;
+  margin: 20px;
+  perspective: 1100px;
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(30, 30, 30, 0.2);
+  transition: box-shadow 0.3s, transform 1s;
+}
+
+.card-container.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.front-card-container {
+  z-index: 1;
+  transform: rotateY(0deg);
+}
+
+.back-card-container {
+  transform: rotateY(180deg);
+}
+
+.card-container:hover {
+  box-shadow: 0 0 20px rgba(30, 30, 30, 0.5);
+}
+
+.card-container .alert-bar {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.card-container .alert-bar.danger {
+  background: #e02041;
+}
+
+.card-container .alert-bar.warning {
+  background: #ffda21;
+}
+
+.card-container .alert-bar.normal {
+  background: #2076e0;
+}
+
+.card-container .alert-bar.disabled {
+  background: #cccccc;
+}
+
+.card-container .alert-bar.expired {
+  background: #333333;
+}
+
+.card-container .content {
+  width: 100%;
+  height: 300px;
+  padding: 14px 32px;
+}
+
+.card-container .content h1 {
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 28px;
+}
+
+.card-container .card-face h1 {
+  cursor: pointer;
+}
+
+.card-container .card-face .time-label {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 12px;
+}
+
+.card-container .card-face .button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  border-radius: 8px 0 8px 0;
+}
+
+.card-container .card-face .delete {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  border-radius: 0 8px 0 8px;
+}
+
+.card-container .content .sensor-info {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px auto;
+}
+
+.sensor-statistics-table {
+  position: absolute;
+  left: 50%;
+  margin-top: -10px;
+  transform: translateX(-50%);
+}
+
+.sensor-unit-col {
+  text-align: left;
+}
+
+.sensor-data-col {
+  text-align: center;
+  padding: 5px;
+}
