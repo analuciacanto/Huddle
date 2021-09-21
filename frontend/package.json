@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "mqtt": "^4.1.0",
     "react": "^16.13.1",
     "react-csv": "^2.0.3",
     "react-dom": "^16.13.1",
@@ -18,7 +17,7 @@
     "react-timeago": "^4.4.0",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
-    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0",
     "toasted-notes": "^3.2.0"
   },
   "scripts": {
