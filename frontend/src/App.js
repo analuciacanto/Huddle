@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import mqtt from 'mqtt';
+import io from "socket.io-client";
 
 import Routes from './routes';
 import { updateHospitalBeds } from './actions';
-import { BROKER_PROTOCOL, BROKER_IP, BROKER_PORT, BROKER_URL_PATH, BROKER_LOGIN, BROKER_PASSWORD, OXIMETERS_TOPIC } from 'settings';
+import { MANAGER_PROTOCOL, MANAGER_IP, MANAGER_PORT, MANAGER_NAMESPACE, OXIMETERS_MESSAGE, ALERTS_MESSAGE } from 'settings';
 
-import handleBrokerConnect from './helpers/handleBrokerConnect';
-import handleBrokerMessage from './helpers/handleBrokerMessage';
+import handleManagerConnect from './helpers/handleManagerConnect';
+import handleOximeterDataMessage from './helpers/handleOximeterDataMessage';
+import handleAlertMessage from './helpers/handleAlertMessage';
 
 import './global.css';
 
@@ -17,22 +18,16 @@ const App = ({ updateHospitalBeds }) => {
   });
 
   useEffect(() => {
-    const options = {
-      username: BROKER_LOGIN,
-      password: Buffer.from(BROKER_PASSWORD),
-      port: BROKER_PORT,
-    };
-    const client = mqtt.connect(`${BROKER_PROTOCOL}://${BROKER_IP}${BROKER_URL_PATH.startsWith('/') ? BROKER_URL_PATH : `/${BROKER_URL_PATH}`}`, options);
+    console.log("useEffect");
+    const client = io(`${MANAGER_PROTOCOL}://${MANAGER_IP}:${MANAGER_PORT}/${MANAGER_NAMESPACE}`);
+    
+    //client.subscribe(OXIMETERS_TOPIC);
 
-    client.subscribe(OXIMETERS_TOPIC);
+    client.on('connection', handleManagerConnect);
 
-    client.on('connect', () => {
-      handleBrokerConnect(client);
-    });
-
-    client.on('message', (topic, message) => {
-      handleBrokerMessage(topic, message);
-    });
+    client.on(OXIMETERS_MESSAGE, handleOximeterDataMessage);
+    
+    client.on(ALERTS_MESSAGE, handleAlertMessage);
   }, []);
 
   return <Routes />;

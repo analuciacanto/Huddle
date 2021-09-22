@@ -19,7 +19,7 @@ Solution developed in [React](https://reactjs.org) aimed at assisting patient mo
 * Detailed view of a hospital bed (with line charts)  
 * Visualization of hospital beds through bar charts  
 * Viewing and exporting individual hospital bed reports  
-* Display of toast alerts received through the broker  
+* Display of toast alerts received through the Manager  
 
 ## Screenshots
 
@@ -70,9 +70,9 @@ See the react section about [deployment](https://facebook.github.io/create-react
 
 ## Real-Time Data
 
-Real-time data is obtained with a publish-subscribe pattern through a communication with a broker.
+Real-time data is obtained with a publish-subscribe pattern through a communication with a Manager.
 
-Settings, such as the broker's address, can be changed through the `settings.js` file mentioned in the previous sections.
+Settings, such as the Manager's address, can be changed through the `settings.js` file mentioned in the previous sections.
 
 The data obtained follows the topic names and patterns presented below:
 
