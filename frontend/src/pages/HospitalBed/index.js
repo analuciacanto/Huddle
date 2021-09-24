@@ -2,20 +2,29 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { FiClock } from 'react-icons/fi';
 import { FaHeartbeat } from 'react-icons/fa';
 import { GiLungs } from 'react-icons/gi';
 import { WiThermometer } from 'react-icons/wi';
 import { MdDeleteSweep } from 'react-icons/md';
 
+
 import { deleteSensorData } from '../../actions';
 
 
-import { TimeSerieLineChart, TimeAgoLabel, ReportTable } from '@ese_tecnodigital/dashboard';
+import { TimeSerieLineChart, TimeAgoLabel, ReportTable, timeFormatter } from '@ese_tecnodigital/dashboard';
 
 import './styles.css';
 
 const HospitalBed = ({ name, records, sensorData, reportsData, deleteSensorData }) => {
   let { id } = useParams();
+  const dataFormat = [
+    {icon:<FiClock  size={20} />, dataName: 'timestamp', unit: '', formatter: timeFormatter},
+    {icon:<FaHeartbeat size={20} />, dataName: 'beat', unit: 'bpm', formatter: null},
+    {icon:<GiLungs size={20} />, dataName: 'spo2', unit: '%', formatter: null},
+    {icon:<WiThermometer size={20} />, dataName: 'temp', unit: 'ºC', formatter: null}
+  ]
+
 
   return (
     <div>
@@ -99,7 +108,7 @@ const HospitalBed = ({ name, records, sensorData, reportsData, deleteSensorData 
           </div>
         </div>
         <div className="hb-report-container">
-          <ReportTable className="hb-report-table" key={id} name={name} reports={reportsData} />
+          <ReportTable className="hb-report-table" key={id} name={name} reports={reportsData} dataFormat={dataFormat} />
         </div>
       </div>
     </div>

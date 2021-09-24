@@ -1,26 +1,44 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {FaHeartbeat} from "react-icons/fa";
 import {GiConsoleController, GiLungs} from "react-icons/gi";
 import {WiThermometer} from "react-icons/wi";
+import { deleteSensorData } from '../../actions';
+
 
 import { Card } from '@ese_tecnodigital/dashboard';
 import './styles.css';
 
-const Monitor = ({ hospitalBeds, sensors, reports }) => {
-  const itens = [
+const Monitor = ({ hospitalBeds, sensors, reports}) => {
+  const dataFormat = [
     {icon:<FaHeartbeat size={32} />, dataName: 'beat', unit: 'bpm', formatter: null},
     {icon:<GiLungs size={32} />, dataName: 'spo2', unit: '%', formatter: null},
     {icon:<WiThermometer size={32} />, dataName: 'temp', unit: 'ºC', formatter: null}
   ]
 
-  console.log(hospitalBeds, sensors, reports);
+  const history = useHistory();
+
+  const handleCardClick = (sensorId) => {
+    history.push(`/beds/${sensorId}`);
+  };
+
+  const handleDeleteSensorData = (sensorId) => {
+    deleteSensorData(sensorId);
+  };
+
   return (
     <div className="monitor-container">
       <div className="beds-container">
         {hospitalBeds.map((hospitalBed, id) => (
           
-          <Card key={id} name={hospitalBed.name} records={sensors[hospitalBed.sensorId].data} sensorId={hospitalBed.sensorId} dataFormat={itens} />
+          <Card key={id} 
+            onCardClick={handleCardClick} 
+            deleteSensorData={handleDeleteSensorData}
+            name={hospitalBed.name} 
+            records={sensors[hospitalBed.sensorId].data} 
+            sensorId={hospitalBed.sensorId} 
+            dataFormat={dataFormat} />
         ))}
       </div>
     </div>

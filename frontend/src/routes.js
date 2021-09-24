@@ -31,9 +31,9 @@ const Routes = () => {
 
       <Switch>
         <Route path="/" exact component={Monitor} />
-        {/*<Route path="/beds/:id" component={HospitalBed} />
+        <Route path="/beds/:id" component={HospitalBed} />
         <Route path="/charts" component={Charts} />
-        <Route path="/reports" component={Reports} /> */}
+        <Route path="/reports" component={Reports} />
       </Switch>
     </BrowserRouter>
   );
