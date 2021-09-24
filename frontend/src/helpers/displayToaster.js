@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import toaster from 'toasted-notes';
 
 import store from '../store';
-import AlertToaster from '../components/AlertToaster';
+import { AlertToaster } from '@ese_tecnodigital/dashboard';
 
-const displayToaster = (sensorId, alertType, message, timestamp) => {
+const displayToaster = (sensorId, alertType, message, timestamp, title) => {
   toaster.notify(
     ({ onClose }) => (
       <Provider store={store}>
@@ -14,6 +14,7 @@ const displayToaster = (sensorId, alertType, message, timestamp) => {
           alertType={alertType}
           message={message}
           timestamp={timestamp}
+          title={title}
           onClose={onClose}
         />
       </Provider>

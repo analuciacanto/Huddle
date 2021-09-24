@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ReportTable from '../../components/ReportTable';
+import { ReportTable } from '@ese_tecnodigital/dashboard';
 
 const Reports = ({ reports, hospitalBeds }) => {
   return (

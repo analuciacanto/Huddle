@@ -8,9 +8,9 @@ import { WiThermometer } from 'react-icons/wi';
 import { MdDeleteSweep } from 'react-icons/md';
 
 import { deleteSensorData } from '../../actions';
-import TimeSerieLineChart from '../../components/TimeSerieLineChart';
-import TimeAgoLabel from '../../components/TimeAgoLabel';
-import ReportTable from '../../components/ReportTable';
+
+
+import { TimeSerieLineChart, TimeAgoLabel, ReportTable } from '@ese_tecnodigital/dashboard';
 
 import './styles.css';
 
