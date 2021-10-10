@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { AiOutlineHome, AiOutlineBarChart, AiOutlineHistory } from 'react-icons/ai';
@@ -11,7 +12,7 @@ import { sensorCheckData } from './actions';
 import coppeImg from './assets/coppe.png';
 import '@ese_tecnodigital/dashboard/dist/index.cjs.css'
 
-const Routes = () => {
+const Routes = ({sensorCheckData}) => {
   return (
     <BrowserRouter>
       <Header logo={coppeImg} sensorCheckData={sensorCheckData} dashboardName="Oximetro IoT UFRJ" headerItens={[{
@@ -39,4 +40,4 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default connect(null, { sensorCheckData })(Routes);

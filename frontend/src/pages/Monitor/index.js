@@ -10,7 +10,7 @@ import { deleteSensorData } from '../../actions';
 import { Card } from '@ese_tecnodigital/dashboard';
 import './styles.css';
 
-const Monitor = ({ hospitalBeds, sensors, reports}) => {
+const Monitor = ({ hospitalBeds, sensors, reports, deleteSensorData}) => {
   const dataFormat = [
     {icon:<FaHeartbeat size={32} />, dataName: 'beat', unit: 'bpm', formatter: null},
     {icon:<GiLungs size={32} />, dataName: 'spo2', unit: '%', formatter: null},
@@ -34,9 +34,10 @@ const Monitor = ({ hospitalBeds, sensors, reports}) => {
           
           <Card key={id} 
             onCardClick={handleCardClick} 
-            deleteSensorData={handleDeleteSensorData}
+            onDeleteClick={handleDeleteSensorData}
             name={hospitalBed.name} 
             records={sensors[hospitalBed.sensorId].data} 
+            isDataExpired={sensors[hospitalBed.sensorId].expired} 
             sensorId={hospitalBed.sensorId} 
             dataFormat={dataFormat} />
         ))}
@@ -52,4 +53,4 @@ const mapStateToProps = (state) => {
   return { hospitalBeds, sensors, reports };
 };
 
-export default connect(mapStateToProps)(Monitor);
+export default connect(mapStateToProps, { deleteSensorData })(Monitor);
