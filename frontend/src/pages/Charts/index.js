@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import GenericBarChart from '../../components/GenericBarChart';
+import { GenericBarChart } from '@ese_tecnodigital/dashboard';
 import emptySensorData from '../../helpers/emptySensorData';
 
 import './styles.css';
