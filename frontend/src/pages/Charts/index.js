@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { GenericBarChart } from '@ese_tecnodigital/dashboard';
 import emptySensorData from '../../helpers/emptySensorData';
 
@@ -48,13 +47,14 @@ const Charts = ({ data }) => {
 
 const mapStateToProps = (state) => {
   let data = [];
-  state.hospitalBeds.forEach((hospitalBed) => {
-    const name = hospitalBed.name;
-    const isExpired = state.sensors[hospitalBed.sensorId].expired;
-    const records = state.sensors[hospitalBed.sensorId].data;
+  for (const [key, hospitalBed] of Object.entries(state.hospitalBeds))
+  {
+    const name = `Leito ${hospitalBed.bed_number}`;
+    const isExpired = state.sensors[key].expired;
+    const records = state.sensors[key].data;
     const { beat, spo2, temp } = isExpired ? emptySensorData : records[records.length - 1];
     data.push({ name, beat, spo2, temp });
-  });
+  }
   return { data };
 };
 

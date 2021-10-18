@@ -120,7 +120,7 @@ const mapStateToProps = (state, ownProps) => {
   const records = state.sensors[id].data;
   const sensorData = records[records.length - 1];
   const reportsData = state.reports[id].data;
-  const name = state.hospitalBeds.find((hospitalBed) => hospitalBed.sensorId === parseInt(id)).name;
+  const name = `Leito ${state.hospitalBeds[id].bed_number}`;
   return { name, records, sensorData, reportsData };
 };
 

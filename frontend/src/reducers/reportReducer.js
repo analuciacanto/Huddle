@@ -1,6 +1,12 @@
 import RecordsQueue from '../helpers/RecordsQueue';
 import emptySensorData from '../helpers/emptySensorData';
-import { SENSOR_DATA_RECEIVED, DELETE_SENSOR_DATA, UPDATE_HOSPITAL_BEDS } from '../actions/types';
+import {
+  SENSOR_DATA_RECEIVED,
+  DELETE_SENSOR_DATA,
+  RESET_HOSPITAL_BEDS,
+  ADD_HOSPITAL_BED,
+  REMOVE_HOSPITAL_BED
+} from '../actions/types';
 import { REPORT_INTERVAL_MINUTES } from 'settings';
 
 const reportKeyPrefix = 'report-sensor-';
@@ -48,6 +54,12 @@ export default (state = {}, action) => {
   switch (action.type) {
     case SENSOR_DATA_RECEIVED: {
       const { sensorId, sensorData } = action.payload;
+      if (!(sensorId in state))
+      {
+        debugger;
+        return state;
+      }
+
       const reportQueue = new RecordsQueue(reportsPerDay, reportKeyPrefix + sensorId);
       reportQueue.loadLocal();
       const lastReport = reportQueue.getLast();
@@ -59,15 +71,28 @@ export default (state = {}, action) => {
       state[sensorId].data = reportQueue.queue;
       return { ...state };
     }
+
     case DELETE_SENSOR_DATA: {
       const sensorId = action.payload;
       localStorage.removeItem(reportKeyPrefix + sensorId);
       const emptyData = loadInitialData([action.payload]);
       return { ...state, ...emptyData };
     }
-    case UPDATE_HOSPITAL_BEDS: {
-      return loadInitialData(action.payload.map((hospitalBed) => hospitalBed.sensorId));
+
+    case RESET_HOSPITAL_BEDS: {
+      return loadInitialData(action.payload.map((hospitalBed) => hospitalBed.index));
     }
+
+    case ADD_HOSPITAL_BED: {
+      const emptyData = loadInitialData([action.payload.index]);
+      return { ...state, ...emptyData };
+    }
+    
+    case REMOVE_HOSPITAL_BED: {
+      delete state[action.payload];
+      return { ...state };
+    }
+
     default: {
       return state;
     }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {FaHeartbeat} from "react-icons/fa";
-import {GiConsoleController, GiLungs} from "react-icons/gi";
-import {WiThermometer} from "react-icons/wi";
+import { FaHeartbeat } from "react-icons/fa";
+import { GiLungs } from "react-icons/gi";
+import { WiThermometer } from "react-icons/wi";
 import { deleteSensorData } from '../../actions';
 
 
@@ -30,15 +30,14 @@ const Monitor = ({ hospitalBeds, sensors, reports, deleteSensorData}) => {
   return (
     <div className="monitor-container">
       <div className="beds-container">
-        {hospitalBeds.map((hospitalBed, id) => (
-          
+        {Object.entries(hospitalBeds).map(([key, hospitalBed], id) => (
           <Card key={id} 
             onCardClick={handleCardClick} 
             onDeleteClick={handleDeleteSensorData}
-            name={hospitalBed.name} 
-            records={sensors[hospitalBed.sensorId].data} 
-            isDataExpired={sensors[hospitalBed.sensorId].expired} 
-            sensorId={hospitalBed.sensorId} 
+            name={`Leito ${hospitalBed.bed_number}`}
+            records={sensors[key].data} 
+            isDataExpired={sensors[key].expired} 
+            sensorId={key} 
             dataFormat={dataFormat} />
         ))}
       </div>
