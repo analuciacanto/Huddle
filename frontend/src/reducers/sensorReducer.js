@@ -1,6 +1,11 @@
 import RecordsQueue from '../helpers/RecordsQueue';
 import emptySensorData from '../helpers/emptySensorData';
-import { SENSOR_DATA_RECEIVED, SENSOR_DATA_CHECK, DELETE_SENSOR_DATA, UPDATE_HOSPITAL_BEDS } from '../actions/types';
+import { 
+  SENSOR_DATA_RECEIVED, 
+  SENSOR_DATA_CHECK, 
+  DELETE_SENSOR_DATA, 
+  RESET_HOSPITAL_BEDS,
+  ADD_HOSPITAL_BED } from '../actions/types';
 import { RECORDS_TO_SAVE } from 'settings';
 
 const sensorKeyPrefix = 'sensor-';
@@ -53,8 +58,12 @@ export default (state = {}, action) => {
       const emptyData = loadInitialData([action.payload]);
       return { ...state, ...emptyData };
     }
-    case UPDATE_HOSPITAL_BEDS: {
-      return loadInitialData(action.payload.map((hospitalBed) => hospitalBed.sensorId));
+    case RESET_HOSPITAL_BEDS: {
+      return loadInitialData(action.payload.map((hospitalBed) => hospitalBed.index));
+    }
+    case ADD_HOSPITAL_BED: {
+      const emptyData = loadInitialData([action.payload.index]);
+      return { ...state, ...emptyData };
     }
     default:
       return state;

@@ -18,11 +18,11 @@ const Reports = ({ reports, hospitalBeds }) => {
   return (
     <div className="monitor-container">
       <div className="beds-container">
-        {hospitalBeds.map((hospitalBed, id) => (
+        {Object.entries(hospitalBeds).map(([key, hospitalBed], id) => (
           <ReportTable key={id} 
                         dataFormat={dataFormat}
-                        name={hospitalBed.name} 
-                        reports={reports[hospitalBed.sensorId].data} />
+                        name={hospitalBed.bed_number} 
+                        reports={reports[key].data} />
         ))}
       </div>
     </div>
