@@ -34,7 +34,7 @@ const Monitor = ({ hospitalBeds, sensors, reports, deleteSensorData}) => {
           <Card key={id} 
             onCardClick={handleCardClick} 
             onDeleteClick={handleDeleteSensorData}
-            name={hospitalBed.bed_number} 
+            name={`Leito ${hospitalBed.bed_number}`}
             records={sensors[key].data} 
             isDataExpired={sensors[key].expired} 
             sensorId={key} 

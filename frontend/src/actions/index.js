@@ -6,7 +6,9 @@ import {
   SENSOR_DATA_CHECK, 
   DELETE_SENSOR_DATA, 
   RESET_HOSPITAL_BEDS,
-  ADD_HOSPITAL_BED } from './types';
+  ADD_HOSPITAL_BED, 
+  REMOVE_HOSPITAL_BED,
+  UPDATE_HOSPITAL_BED} from './types';
 
 export const sensorDataReceived = (data) => {
   return {
@@ -39,6 +41,20 @@ export const addHospitalBed = (data) => {
 export const resetHospitalBeds = (data) => {
   return {
     type: RESET_HOSPITAL_BEDS,
+    payload: data,
+  };
+};
+
+export const removeHospitalBed = (id) => {
+  return {
+    type: REMOVE_HOSPITAL_BED,
+    payload: id,
+  };
+};
+
+export const updateHospitalBed = (data) => {
+  return {
+    type: UPDATE_HOSPITAL_BED,
     payload: data,
   };
 };

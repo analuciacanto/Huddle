@@ -21,7 +21,7 @@ const Reports = ({ reports, hospitalBeds }) => {
         {Object.entries(hospitalBeds).map(([key, hospitalBed], id) => (
           <ReportTable key={id} 
                         dataFormat={dataFormat}
-                        name={hospitalBed.bed_number} 
+                        name={`Leito ${hospitalBed.bed_number}`}
                         reports={reports[key].data} />
         ))}
       </div>

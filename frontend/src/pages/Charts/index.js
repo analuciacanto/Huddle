@@ -49,7 +49,7 @@ const mapStateToProps = (state) => {
   let data = [];
   for (const [key, hospitalBed] of Object.entries(state.hospitalBeds))
   {
-    const name = hospitalBed.bed_number;
+    const name = `Leito ${hospitalBed.bed_number}`;
     const isExpired = state.sensors[key].expired;
     const records = state.sensors[key].data;
     const { beat, spo2, temp } = isExpired ? emptySensorData : records[records.length - 1];

@@ -1,20 +1,32 @@
 import store from '../store';
-import { resetHospitalBeds, addHospitalBed } from '../actions';
+import { 
+    resetHospitalBeds, 
+    addHospitalBed,
+    removeHospitalBed,
+    updateHospitalBed
+} from '../actions';
 
 const handleConfigurationMessage = (...messages) => {
     messages.forEach((message) => {
         const { type, data } = message;
         switch (type) {
-            case 'reset':
+            case 'reset': {
                 handleReset(data);
                 break;
-            case 'add':
-                debugger;
+            }
+            case 'add': {
                 handleAdd(data);
                 break;
-            case 'remove':
-                handleRemove();
+            }
+            case 'remove': {
+                debugger;
+                handleRemove(data);
                 break;
+            }
+            case 'update': {
+                handleUpdate(data);
+                break;
+            }
         }
     });
 };
@@ -27,8 +39,12 @@ const handleAdd = (config) => {
     store.dispatch(addHospitalBed(config));
 };
 
-const handleRemove = (config) => {
-    // store.dispatch(addHospitalBed(config));
+const handleRemove = (config_id) => {
+    store.dispatch(removeHospitalBed(config_id));
+};
+
+const handleUpdate = (config) => {
+    store.dispatch(updateHospitalBed(config));
 };
 
 export default handleConfigurationMessage;

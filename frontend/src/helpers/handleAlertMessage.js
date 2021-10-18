@@ -2,11 +2,11 @@ import displayToaster from './displayToaster';
 
 const handleAlertMessage = (...messages) => {
   const timestamp = Date.now();
-  messages.forEach((message) =>
+  messages.forEach((m) =>
   {
-    const { sensorId, data } = message;
-    const { alertType, text } = data;
-    const alertMessage = text ? text : `Alerta tipo ${alertType}`;
+    const { sensorId, data } = m;
+    const { alertType, message } = data;
+    const alertMessage = message ? message : `Alerta tipo ${alertType}`;
     displayToaster(sensorId, alertType, alertMessage, timestamp);
   });
 };
