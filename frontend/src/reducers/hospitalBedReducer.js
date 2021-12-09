@@ -1,6 +1,6 @@
 import { ADD_HOSPITAL_BED, REMOVE_HOSPITAL_BED, RESET_HOSPITAL_BEDS, UPDATE_HOSPITAL_BED } from '../actions/types';
 
-export default (state = {}, action) => {
+export default (state = {}, action = {}) => {
   switch (action.type) {
     case RESET_HOSPITAL_BEDS: {
       state = {}
