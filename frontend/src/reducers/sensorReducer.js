@@ -28,7 +28,7 @@ const loadInitialData = (ids) => {
   return state;
 };
 
-export default (state = {}, action) => {
+export default (state = {}, action = {}) => {
   switch (action.type) {
     case SENSOR_DATA_RECEIVED: {
       const { sensorId, sensorData } = action.payload;
