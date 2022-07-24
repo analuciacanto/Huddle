@@ -1,107 +1,70 @@
-# Monitoring Dashboard (Covid-19)
+# Getting Started with Create React App
 
-Solution developed in [React](https://reactjs.org) aimed at assisting patient monitoring especially in the context of Covid-19.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[Features](#features) •
-[Screenshots](#screenshots) •
-[Getting Started](#getting-started) •
-[Deployment](#deployment) •
-[Real-Time Data](#real-time-data) •
-[Authors](#authors) •
-[License](#license)
+## Available Scripts
 
-![Monitoring Card](images/gifs/cardMonitoring.gif)
+In the project directory, you can run:
 
-## Features
+### `npm start`
 
-* Easy-to-view monitoring dashboard for all hospital beds  
-* Monitoring card with real-time information and recent interval statistics  
-* Detailed view of a hospital bed (with line charts)  
-* Visualization of hospital beds through bar charts  
-* Viewing and exporting individual hospital bed reports  
-* Display of toast alerts received through the Manager  
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Screenshots
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Dashboard Home Page | Detailed Hospital Bed | Bar Charts Visualization | Reports Page
-:------------------:|:---------------------:|:------------------------:|:------------:
-![Dashboard Home Page](images/screens/home.png)|![Detailed Hospital Bed](images/screens/hospitalBed.png)|![Bar Charts Visualization](images/screens/barCharts.png)|![Reports Page](images/screens/reports.png)
+### `npm test`
 
-For more screenshots and gifs access the [screens.md  file](screens.md).
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Getting Started
+### `npm run build`
 
-#### Prerequisites
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-* [Node](https://nodejs.org) (with npm)
-
-#### Installing Dependencies
-
-To run the app in the development mode or build the app, you need to install the app's dependencies.
-
-```shell
-npm install
-```
-
-#### Running in the development mode
-
-The app settings can be changed in the `public/settings.js` file.
-
-```shell
-npm start
-```
-
-Runs the app in the development mode.  
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## Deployment
-
-```shell
-npm run build
-```
-
-Builds the app for production to the `build` folder.
-
-After that the app settings can be changed in the `build/settings.js` file.
-
+The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the react section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Real-Time Data
+### `npm run eject`
 
-Real-time data is obtained with a publish-subscribe pattern through a communication with a Manager.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-Settings, such as the Manager's address, can be changed through the `settings.js` file mentioned in the previous sections.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-The data obtained follows the topic names and patterns presented below:
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-* Topic name: **`oximeters/:id`**  
-Message pattern:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-    ```json
-        {
-            "beat": number,
-            "spo2": number,
-            "temp": number
-        }
-    ```
+## Learn More
 
-* Topic name: **`alerts/:id`**  
-Message pattern:
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-    ```json
-        {
-            "alertType": number
-        }
-    ```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-## Authors
+### Code Splitting
 
-[![DamascenoRafael](images/DamascenoRafael.png)](https://github.com/DamascenoRafael)
- [![Maasouza](images/Maasouza.png)](https://github.com/Maasouza)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-## License
+### Analyzing the Bundle Size
 
-Usage is provided under the GNU General Public License v3.0.  
-See [LICENSE](LICENSE) for details.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
