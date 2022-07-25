@@ -29,6 +29,7 @@
     width: 150px;
     display: flex;
     justify-content: space-between;
+    color: gray;
   }
   
   .header-container .clock-container {

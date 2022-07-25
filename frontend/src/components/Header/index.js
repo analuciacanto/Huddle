@@ -28,14 +28,8 @@ const Header = () => {
         <img src={coppeImg} alt="coppe" />
         <div className="left-button-container">
           <Link className="button-link" to="/" title="Página Incial">
-            <AiOutlineHome size={32} />
-          </Link>
-          <Link className="button-link" to="/charts" title="Gráficos Barra">
-            <AiOutlineBarChart size={32} />
-          </Link>
-          <Link className="button-link" to="/reports" title="Relatório">
-            <AiOutlineHistory size={32} />
-          </Link>
+            <AiOutlineHome color="primary" size={32} />
+          </Link>         
         </div>
       </div>
       <div className="clock-container">

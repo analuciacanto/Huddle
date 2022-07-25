@@ -1,12 +1,12 @@
 .card-container-holder {
   width: 250px;
-  height: 350px;
+  height: 270px;
   margin: 20px;
   perspective: 1100px;
 }
 
 .card-container {
-  width: 100%;
+  width: 250px;
   height: 100%;
   transform-style: preserve-3d;
   cursor: pointer;
@@ -61,7 +61,7 @@
 }
 
 .card-container .alert-bar.normal {
-  background: #2076e0;
+  background: #219653;
 }
 
 .card-container .alert-bar.disabled {
@@ -74,7 +74,7 @@
 
 .card-container .content {
   width: 100%;
-  height: 400px;
+  height: 100%;
   padding: 14px 32px;
 }
   
@@ -82,6 +82,7 @@
   text-align: center;
   margin-top: 8px;
   margin-bottom: 28px;
+  width: 80%;
 }
 
 .card-container .card-face h1 {
@@ -115,11 +116,12 @@
 
 .card-container .content .sensor-info {
   display: flex;
-  font-size: 18px;
+  font-size: 20px;
   align-items: center;
   justify-content: space-between;
-  margin: 15px auto;
-  height: 20px;
+  margin-top: 20px;    
+  height: 40px;
+  width: 180px;
 }
 
 .card-container .content .risk-info .info-icon{

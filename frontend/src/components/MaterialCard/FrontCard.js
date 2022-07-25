@@ -9,17 +9,15 @@ const FrontCard = (props) => {
 
   return (
     <div className="content">  
-      <h1>{props.name}</h1>
-      <div className="risk-info">       
-        </div>         
+      <h1>{props.name}</h1>    
       <div className="sensor-info">
-        <DeviceThermostatOutlinedIcon />
+        <DeviceThermostatOutlinedIcon  fontSize="large"/>
         <p>
           {props.measures?.temperature}/{indicators.temperature} ºC
         </p>
       </div>
       <div className="sensor-info">
-        <InvertColorsIcon size={32} />
+        <InvertColorsIcon  fontSize="large"/>
         <p>
           {props.measures?.humidity}/{indicators.humidity} %
         </p>
