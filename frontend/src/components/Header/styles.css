@@ -36,4 +36,9 @@
     right: 24px;
     align-self: center;
   }
+
+  .header-container .login-container {
+    position: absolute;
+    right: 150px;
+  }
   
