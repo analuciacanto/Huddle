@@ -5,14 +5,24 @@ import {
   AiOutlineBarChart,
   AiOutlineHistory,
   AiOutlineLogin,
+  AiOutlineLogout,
 } from "react-icons/ai";
+import Cookies from "universal-cookie";
 
 import coppeImg from "../../assets/coppe.png";
 import "./styles.css";
+import { Button } from "@mui/material";
 
 const Header = () => {
+  const cookies = new Cookies();
+  const [authenticated, setAuthenticated] = useState(false);
   const [clock, setClock] = useState("");
   const DASHBOARD_NAME = "HUDDLE/UFRJ";
+
+  const handleLogout = (event) => {
+    event.preventDefault();
+    cookies.remove("user");
+  };
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -22,6 +32,11 @@ const Header = () => {
       clearInterval(intervalId);
     };
   });
+
+  useEffect(() => {
+    if (cookies.get("user")) setAuthenticated(true);
+    else setAuthenticated(false);
+  }, [cookies.get("user")]);
 
   return (
     <header className="header-container">
@@ -42,11 +57,24 @@ const Header = () => {
           </Link>
         </div>
       </div>
-      <div className="login-container">
-        <Link className="button-link" to="/login" title="Login">
-          <AiOutlineLogin size={32} />
-        </Link>
-      </div>
+      {authenticated ? (
+        <div className="login-container">
+          <Link
+            className="button-link"
+            to="/"
+            title="Logout"
+            onClick={handleLogout}
+          >
+            <AiOutlineLogout size={32} />
+          </Link>
+        </div>
+      ) : (
+        <div className="login-container">
+          <Link className="button-link" to="/login" title="Login">
+            <AiOutlineLogin size={32} />
+          </Link>
+        </div>
+      )}
       <div className="clock-container">
         <h2>{clock}</h2>
       </div>

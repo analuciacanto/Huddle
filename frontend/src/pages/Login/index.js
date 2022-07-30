@@ -7,17 +7,25 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 const theme = createTheme();
 
 const Login = () => {
+  const cookies = new Cookies();
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    if (data.get("user") && data.get("password")) {
+      cookies.set("user", data.get("user"));
+      navigate("/");
+    } else {
+      alert("Por favor, preencha os dados de cadastro.");
+    }
   };
 
   return (
