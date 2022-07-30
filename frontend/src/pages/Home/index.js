@@ -1,36 +1,33 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import TasksTable from '../../components/TasksTable'
+import axios from "../../api/axios"
 
 const Home = () => {
-    const data = React.useMemo(
-        () => [
-          {
-            col1: 'Evento 1',
-            col2: 'Local A',
-            col3: 'Equipamento A',
-            col4: 'Matheus',
-            col5: 'Hoje 13:00',
-            col6: 'Hoje 13:00',
-          },
-          {
-            col1: 'Evento 2',
-            col2: 'Local B',
-            col3: 'Material B',
-            col4: 'Alvaro',
-            col5: 'Ontem 17:00',
-            col6: 'Hoje 13:00',
-          },
-          {
-            col1: 'Evento 3',
-            col2: 'Local C',
-            col3: 'Equipamento C',
-            col4: 'Ana',
-            col5: 'Hoje 13:00',
-            col6: 'Hoje 13:00',
-          },
-        ],
-        []
-      )
+  const [tasks, setTasks] = useState([]);
+  const UPDATE_MS = 5000; // 5 seconds
+  
+
+  // call retrieveTasks on each update
+  useEffect(() => {
+    const interval = setInterval(() => {
+      retrieveTasks();
+    }, UPDATE_MS);
+      
+    return () => {
+      clearInterval(interval);
+    }
+  }, []);
+
+
+  const retrieveTasks = () => {
+    axios.get(`/tasks`)
+      .then(response => {
+        setTasks(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
 
   return (
     <div>
@@ -40,7 +37,7 @@ const Home = () => {
             justifyContent: 'center',
             marginTop: '40px'
         }}>
-            <TasksTable data={data} />
+            <TasksTable data={tasks} />
         </div>
     </div>
   )
