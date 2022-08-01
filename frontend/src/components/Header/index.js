@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   AiOutlineLogin,
   AiOutlineLogout,
+  AiOutlineHome
 } from "react-icons/ai";
 import Cookies from "universal-cookie";
 
@@ -41,6 +42,11 @@ const Header = () => {
       </div>
       <div className="left-items-container">
         <img src={coppeImg} alt="coppe" />      
+        <div className="left-button-container">
+          <Link className="button-link" to="/" title="Página Incial">
+            <AiOutlineHome size={32} />
+          </Link>
+          </div>
       </div>
       {authenticated ? (
         <div className="login-container">

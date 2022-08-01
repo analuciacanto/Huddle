@@ -3,7 +3,7 @@ import FrontCard from './FrontCard';
 import './styles.css';
 
 const Card = (props) => {
-  const { name, measures } = props.material;
+  const measures = props.measures;
 
   return (
     <div className="card-container-holder">
@@ -12,7 +12,7 @@ const Card = (props) => {
         <div className={props.level === 'danger' ? 'alert-bar danger' : props.level === 'warning' ? 'alert-bar warning' : 'alert-bar normal' }>          
           </div>
           <FrontCard
-            name={name}
+            name={"Sala H-304A"}
             measures={measures}
           />                  
       </div>

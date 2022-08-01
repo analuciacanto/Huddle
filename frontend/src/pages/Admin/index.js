@@ -1,43 +1,36 @@
-import React from "react";
+import React ,{useEffect, useState} from "react";
 import MaterialCard from "../../components/MaterialCard"
 import DeckCard from "../../components/DeckCard"
-import {Grid, Box, Typography} from '@mui/material';
+import {Grid, Box, Typography, Dialog, DialogActions,DialogContent, Button, TextField} from '@mui/material';
+import axios from 'axios'
+import NotificationsSlider from '../../components/NotificationsSlider'
 
 const Admin = () => {
-    const dataMaterial = React.useMemo(
-        () => [            
-            {   id: 1,
-                name: "Local A",
-                measures: {
-                     temperature: 35,
-                     humidity: 60
-                }                
-            },
-            {   id: 2,
-                name: "Local B",
-                measures: {
-                     temperature: 22,
-                     humidity: 55
-                }                
-            },
-            {   id: 3,
-                name: "Local C",
-                measures: {
-                     temperature: 20,
-                     humidity: 60
-                }                
-            },
-            {   id: 4,
-                name: "Local D",
-                measures: {
-                     temperature: 20,
-                     humidity: 80
-                }                
-            }                                
-        ],
-        []
-      )
+    const [open, setOpen] = useState(false);
+    const [materialMeasures, setMaterialMeasures] = useState([]);
+    const UPDATE_MS = 5000; // 5 seconds
+  
+      const getMaterialMeasures = () => {
+        axios.get(`http://localhost:5000/iot/materials`)
+          .then(response => {
+            setMaterialMeasures(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
 
+      useEffect(() => {
+        const interval = setInterval(() => {
+            getMaterialMeasures();
+        }, UPDATE_MS);
+          
+        return () => {
+          clearInterval(interval);
+        }
+      }, []);
+
+    
       const dataDeck = React.useMemo(
         () => [            
             {   id: 1,
@@ -65,11 +58,12 @@ const Admin = () => {
         []
       )
 
-   const  getMaterialCritical = (material) => {
-        if (material.measures.temperature > 22 || material.measures.temperature < 18 || material.measures.humidity > 70 || material.measures.humidity < 35 ){
+      
+   const  getMaterialCritical = (temperature, humidity) => {
+        if (temperature > 22 ||temperature < 18 || humidity > 70 || humidity < 35 ){
             return 'danger'
         }
-        if (material.measures.temperature === 22 || material.measures.temperature === 18 || material.measures.humidity === 70 || material.measures.humidity === 35 ){
+        if (temperature === 22 ||temperature === 18 || humidity === 70 || humidity === 35 ){
             return 'warning'
         }
         else{
@@ -90,7 +84,8 @@ const Admin = () => {
     }
 
    return(
-   <Box display="flex">
+    <Box>
+    <Box display="flex">
     <Box
            sx={{
                width: '45%',
@@ -102,9 +97,12 @@ const Admin = () => {
                 Materiais
             </Typography>
            <Grid container spacing={2}>
-               {dataMaterial.map((material) => (
-                   <Grid item xs={6}>
-                       <MaterialCard level={getMaterialCritical(material)} key={material.id} material={material} />
+               {[{}].map((material) => (
+                       <Grid item xs={6}>
+                       <MaterialCard level={getMaterialCritical(materialMeasures[materialMeasures.length - 1].temperature, 
+                        materialMeasures[materialMeasures.length - 1].humidity)}
+                         key={1}
+                         measures={materialMeasures[materialMeasures.length - 1]} />
                    </Grid>
                ))}
            </Grid>    
@@ -126,7 +124,38 @@ const Admin = () => {
                    </Grid>
                ))}
            </Grid>    
+        </Box>
         </Box>  
+        <NotificationsSlider onClick={() => setOpen(true)}/>
+        <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogContent>
+        
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Responsável"
+            type="name"
+            fullWidth
+            variant="standard"
+          />
+          
+          <TextField
+            autoFocus
+            margin="dense"
+            id="date"
+            label="Data"
+            type="date"
+            fullWidth
+            variant="standard"
+          />
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)}>Cancelar</Button>
+          <Button onClick={() => setOpen(false)}>Salvar</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
     )
 }
