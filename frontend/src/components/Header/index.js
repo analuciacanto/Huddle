@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  AiOutlineHome,
-  AiOutlineBarChart,
-  AiOutlineHistory,
   AiOutlineLogin,
   AiOutlineLogout,
 } from "react-icons/ai";
@@ -11,7 +8,6 @@ import Cookies from "universal-cookie";
 
 import coppeImg from "../../assets/coppe.png";
 import "./styles.css";
-import { Button } from "@mui/material";
 
 const Header = () => {
   const cookies = new Cookies();
@@ -44,18 +40,7 @@ const Header = () => {
         <h1>{DASHBOARD_NAME}</h1>
       </div>
       <div className="left-items-container">
-        <img src={coppeImg} alt="coppe" />
-        <div className="left-button-container">
-          <Link className="button-link" to="/" title="Página Incial">
-            <AiOutlineHome size={32} />
-          </Link>
-          <Link className="button-link" to="/charts" title="Gráficos Barra">
-            <AiOutlineBarChart size={32} />
-          </Link>
-          <Link className="button-link" to="/reports" title="Relatório">
-            <AiOutlineHistory size={32} />
-          </Link>
-        </div>
+        <img src={coppeImg} alt="coppe" />      
       </div>
       {authenticated ? (
         <div className="login-container">
