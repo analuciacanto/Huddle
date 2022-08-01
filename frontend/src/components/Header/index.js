@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { AiOutlineHome, AiOutlineBarChart, AiOutlineHistory } from 'react-icons/ai';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  AiOutlineHome,
+  AiOutlineLogin,
+} from "react-icons/ai";
 
-import coppeImg from '../../assets/coppe.png';
-import './styles.css';
+import coppeImg from "../../assets/coppe.png";
+import "./styles.css";
 
 const Header = () => {
-
-  const [clock, setClock] = useState('');
-  const DASHBOARD_NAME = "HUDDLE/UFRJ"
+  const [clock, setClock] = useState("");
+  const DASHBOARD_NAME = "HUDDLE/UFRJ";
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setClock(new Date().toLocaleTimeString('pt-BR'));
+      setClock(new Date().toLocaleTimeString("pt-BR"));
     }, 1000);
     return () => {
       clearInterval(intervalId);
@@ -31,6 +33,11 @@ const Header = () => {
             <AiOutlineHome color="primary" size={32} />
           </Link>         
         </div>
+      </div>
+      <div className="login-container">
+        <Link className="button-link" to="/login" title="Login">
+          <AiOutlineLogin size={32} />
+        </Link>
       </div>
       <div className="clock-container">
         <h2>{clock}</h2>
