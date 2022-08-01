@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { Link } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -69,15 +70,17 @@ const Login = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Entrar
-            </Button>
+            />  
+             <Link className="button-link" to="/admin" title="Admin">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Entrar
+              </Button>        
+              </Link>         
           </Box>
         </Box>
       </Container>

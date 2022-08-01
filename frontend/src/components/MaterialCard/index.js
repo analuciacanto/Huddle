@@ -7,13 +7,20 @@ const Card = (props) => {
 
   return (
     <div className="card-container-holder">
-        <div className="card-face front-card-container">       
+    <div className={'card-container'}>
+      <div className="card-face front-card-container">
+        <div className={'alert-bar normal'}>          
+          </div>
           <FrontCard
             name={name}
             measures={measures}
-          />     
-           </div>
+          />          
+        
+      </div>
+   
     </div>
+  </div>
+   
   );
 };
 
