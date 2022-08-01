@@ -16,22 +16,22 @@ const Admin = () => {
             {   id: 2,
                 name: "Local B",
                 measures: {
-                     temperature: 38,
+                     temperature: 22,
                      humidity: 55
                 }                
             },
             {   id: 3,
                 name: "Local C",
                 measures: {
-                     temperature: 35,
+                     temperature: 20,
                      humidity: 60
                 }                
             },
             {   id: 4,
                 name: "Local D",
                 measures: {
-                     temperature: 38,
-                     humidity: 55
+                     temperature: 20,
+                     humidity: 80
                 }                
             }                                
         ],
@@ -49,22 +49,45 @@ const Admin = () => {
             {   id: 2,
                 name: "Deck B",
                 equipment: "Equipamento B",
-                status: "Disponível"          
+                status: "Em uso"          
             },
             {   id: 3,
                 name: "Deck C",
                 equipment: "Equipamento C",
-                status: "Disponível"           
+                status: "Em limpeza"           
             },
             {   id: 4,
                 name: "Deck D",
                 equipment: "Equipamento D",
-                status: "Disponível"           
+                status: "Desconhecido"           
             }                                
         ],
         []
       )
 
+   const  getMaterialCritical = (material) => {
+        if (material.measures.temperature > 22 || material.measures.temperature < 18 || material.measures.humidity > 70 || material.measures.humidity < 35 ){
+            return 'danger'
+        }
+        if (material.measures.temperature === 22 || material.measures.temperature === 18 || material.measures.humidity === 70 || material.measures.humidity === 35 ){
+            return 'warning'
+        }
+        else{
+            return 'normal'
+        }
+    }
+
+    const  getDeckCritical = (deck) => {
+        if (deck.status === "Disponível") {
+            return 'normal'
+        }
+        else if (deck.status === 'Desconhecido'){
+            return 'danger'
+        }
+        else{
+            return 'warning'
+        }
+    }
 
    return(
    <Box display="flex">
@@ -75,13 +98,13 @@ const Admin = () => {
                marginLeft: "5%",
                marginTop: '2%'           
            }} >
-            <Typography ml={'30%'} mb={'2%'} variant="h3" component="h4">
+            <Typography ml={'35%'} mb={'2%'} variant="h4" component="h4">
                 Materiais
             </Typography>
            <Grid container spacing={2}>
                {dataMaterial.map((material) => (
                    <Grid item xs={6}>
-                       <MaterialCard key={material.id} material={material} />
+                       <MaterialCard level={getMaterialCritical(material)} key={material.id} material={material} />
                    </Grid>
                ))}
            </Grid>    
@@ -93,13 +116,13 @@ const Admin = () => {
                marginRight: "5%",
                marginTop: '2%'           
            }} >
-            <Typography ml={'20%'} mb={'2%'} variant="h3" component="h4">
+            <Typography ml={'28%'} mb={'2%'} variant="h4" component="h4">
                 Equipamentos
             </Typography>
            <Grid container spacing={2}>
                {dataDeck.map((deck) => (
                    <Grid item xs={6}>
-                       <DeckCard key={deck.id} deck={deck} />
+                       <DeckCard level={getDeckCritical(deck)} key={deck.id} deck={deck} />
                    </Grid>
                ))}
            </Grid>    

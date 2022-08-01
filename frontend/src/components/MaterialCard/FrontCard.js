@@ -5,7 +5,7 @@ import InvertColorsIcon from '@mui/icons-material/InvertColors';
 
 const FrontCard = (props) => {
 
-  const [indicators] = useState({temperature: 50, humidity: 40});
+  const [indicators] = useState({temperature: 22, humidity: 70});
 
   return (
     <div className="content">  
