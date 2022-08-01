@@ -7,27 +7,23 @@ function TasksTable( { data }) {
         () => [
           {
             Header: 'Evento',
-            accessor: 'col1', // accessor is the "key" in the data
+            accessor: 'id',
           },
           {
-            Header: 'Local',
-            accessor: 'col2',
+            Header: 'Status',
+            accessor: 'status',
           },
           {
-            Header: 'Equipamento/Material',
-            accessor: 'col3',
-          },
-          {
-            Header: 'Responsavel',
-            accessor: 'col4',
+            Header: 'Responsável',
+            accessor: 'responsableId',
           },
           {
             Header: 'Data de Criação',
-            accessor: 'col5',
+            accessor: 'createdAt',
           },
           {
             Header: 'Prazo',
-            accessor: 'col6',
+            accessor: 'dateToComplete',
           },
         ],
         []
