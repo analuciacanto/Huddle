@@ -6,8 +6,12 @@ const Home = () => {
   const [tasks, setTasks] = useState([]);
   const UPDATE_MS = 5000; // 5 seconds
   
+  // call retrieveTasks on page load
+  useEffect(() => {
+    retrieveTasks();
+  }, []);
 
-  // call retrieveTasks on each update
+  // call retrieveTasks on each update interval
   useEffect(() => {
     const interval = setInterval(() => {
       retrieveTasks();
@@ -29,6 +33,39 @@ const Home = () => {
       });
   }
 
+
+  const updateTask = (e) => {
+    axios.put(
+      `/task`, 
+      {
+        "id": e.target.id.value,
+        "responsableId": e.target.responsableId.value,
+        "status": e.target.status.value,
+        "dateToComplete": e.target.dateToComplete.value
+      })
+      .then(() => {
+        retrieveTasks();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  };
+
+  const completeTask = (e) => {
+    axios.delete(
+      `/task`,
+      {
+        data: {"id": e.target.id.value}
+      })
+    .then(() => {
+      retrieveTasks();
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  };
+
+
   return (
     <div>
         <div style={{
@@ -37,7 +74,7 @@ const Home = () => {
             justifyContent: 'center',
             marginTop: '40px'
         }}>
-            <TasksTable data={tasks} />
+            <TasksTable data={tasks} updateTask={updateTask} completeTask={completeTask} />
         </div>
     </div>
   )
