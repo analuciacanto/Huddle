@@ -1,31 +1,17 @@
-import React from 'react'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button'
-import Checkbox from '@mui/material/Checkbox';
-import { useTable } from "react-table";
-
+import { useState } from 'react'
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Checkbox } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 function TasksTable( { data, updateTask, completeTask }) {
-  const [open, setOpen] = React.useState(false);
-  const [confirmOpen, setConfirmOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
-  const [rowInfo, setRowInfo] = React.useState();
-  const [formData, setFormData] = React.useState();
+  const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [rowInfo, setRowInfo] = useState();
+  const [formData, setFormData] = useState();
 
 
-  const handleOpen = (row) => {
-    setRowInfo(row);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setChecked(false);
-  };
+  const handleOpen = (row) => { setRowInfo(row); setOpen(true); };
+  const handleClose = () => { setOpen(false); setChecked(false); };
 
   const handleSubmit = (e) => {
     // prompt confirm if task completed checkbox is checked
@@ -45,91 +31,56 @@ function TasksTable( { data, updateTask, completeTask }) {
     setConfirmOpen(false);
     completeTask(formData);
     setOpen(false);
+    setChecked(false);
   };
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Evento',
-        accessor: 'id',
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-      },
-      {
-        Header: 'Responsável',
-        accessor: 'responsableId',
-      },
-      {
-        Header: 'Data de Criação',
-        accessor: 'createdAt',
-      },
-      {
-        Header: 'Prazo',
-        accessor: 'dateToComplete',
-      },
-    ],
-    []
-  )
-  
-  const {
-      getTableProps,
-      getTableBodyProps,
-      headerGroups,
-      rows,
-      prepareRow,
-    } = useTable({ columns, data })
+  const columns = [
+      { id: 'id', label: 'Evento' },
+      { id: 'status', label: 'Status' },
+      { id: 'responsableId', label: 'Responsável' },
+      { id: 'createdAt', label: 'Data\u00a0de\u00a0Criação' },
+      { id: 'dateToComplete', label: 'Prazo' }]
       
 
   return (
-    <>
-    <table {...getTableProps()} style={{ borderSpacing: '0px 2px' }}>
-    <thead>
-      {headerGroups.map(headerGroup => (
-        <tr {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map(column => (
-            <th
-              {...column.getHeaderProps()}
-              style={{
-                background: '#fafafa',
-                border: 'none',
-                color: 'black',
-                padding: '20px 50px 20px 50px',
-                fontWeight: 'bold',
-              }}
-            >
-              {column.render('Header')}
-            </th>
-          ))}
-        </tr>
-      ))}
-    </thead>
-    <tbody {...getTableBodyProps()}>
-      {rows.map(row => {
-        prepareRow(row)
-        return (
-          <tr {...row.getRowProps()} onClick={() => handleOpen(row.original)}>
-            {row.cells.map(cell => {
+    <>    
+    <Paper sx={{ width: '50%' }}>
+    <TableContainer sx={{ maxHeight: 440 }}>
+      <Table stickyHeader aria-label="sticky table">
+        <TableHead>
+          <TableRow>
+            {columns.map((column) => (
+              <TableCell
+                key={column.id}
+                align={column.align}
+                style={{ minWidth: column.minWidth, backgroundColor: '#f6f6f6' }}
+              >
+                {column.label}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((row) => {
               return (
-                <td
-                  {...cell.getCellProps()}
-                  style={{
-                    padding: '20px 50px 20px 50px',
-                    background: 'white',
-                    textAlign: 'center',
-                    verticalAlign: 'middle'
-                  }}
-                >
-                  {cell.render('Cell')}
-                </td>
-              )
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.code} onClick={() => handleOpen(row)}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number'
+                          ? column.format(value)
+                          : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
             })}
-          </tr>
-        )
-      })}
-    </tbody>
-  </table>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </Paper>
 
   <Dialog open={open} onClose={handleClose}>
   <form onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}>
