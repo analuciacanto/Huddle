@@ -129,11 +129,13 @@ const Admin = () => {
             </Typography>
            <Grid container spacing={2}>
                {[{}].map((material) => (
-                       <Grid item xs={6}>
-                       <MaterialCard level={getMaterialCritical(materialMeasures[materialMeasures.length - 1].temperature,
-                        materialMeasures[materialMeasures.length - 1].humidity)}
-                         key={1}
-                         measures={materialMeasures[materialMeasures.length - 1]} />
+                        <Grid item xs={6}>
+                        {materialMeasures.length > 0 ? 
+                            <MaterialCard level={getMaterialCritical(materialMeasures[materialMeasures.length - 1].temperature,
+                                materialMeasures[materialMeasures.length - 1].humidity)}
+                                key={1}
+                                measures={materialMeasures[materialMeasures.length - 1]} />
+                        : null}
                    </Grid>
                ))}
            </Grid>
