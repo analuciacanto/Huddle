@@ -24,11 +24,15 @@ The manager can also re-view the task pane and edit current tasks at any time.
 
 <img src="./imgs/editar_tarefa">
 
-## Implementation
+## Installation and Setup Instructions
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-In the project directory, you can run:
+Clone down this repository. You will need node and npm installed globally on your machine.
+
+### `npm install`
+
+Install the dependencies in the local node_modules folder.
 
 ### `npm start`
 
