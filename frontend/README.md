@@ -14,7 +14,7 @@ On this same screen, you have the user login option.
 
 After authentication, the manager enters the screen with the relevant information regarding materials and equipment through cards as shown in the following image.
 
-<img src="./imgs/painel_admin.png"> 
+<img src="./imgs/painel_admin.jpg"> 
 
 The manager, in addition to being able to create tasks to be manually displayed on the common screen, can click on warnings that will appear on the screen below the cards and add tasks based on the warnings.
 
