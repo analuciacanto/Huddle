@@ -18,11 +18,11 @@ After authentication, the manager enters the screen with the relevant informatio
 
 The manager, in addition to being able to create tasks to be manually displayed on the common screen, can click on warnings that will appear on the screen below the cards and add tasks based on the warnings.
 
-<img src="./imgs/editar_responsavel"> 
+<img src="./imgs/editar_responsavel.png"> 
 
 The manager can also re-view the task pane and edit current tasks at any time.
 
-<img src="./imgs/editar_tarefa">
+<img src="./imgs/editar_tarefa.png">
 
 ## Installation and Setup Instructions
 
